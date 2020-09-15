@@ -1,19 +1,21 @@
 import { BaseService } from "./BaseService";
 import { AxiosResponse } from "axios";
 
-interface Login {
+export interface Login {
   email: string;
   senha: string;
 }
 
-interface LoginResponse {
+export interface LoginResponse {
   accessToken: string;
   expiresIn: number;
-  usuarioToken: {
-    id: string;
-    email: string;
-    claims: { chave: string; valor: string }[];
-  };
+  usuarioToken: UsuarioToken;
+}
+
+export interface UsuarioToken {
+  id: string;
+  email: string;
+  claims: { chave: string; valor: string }[];
 }
 
 export class LoginService extends BaseService<Login> {
