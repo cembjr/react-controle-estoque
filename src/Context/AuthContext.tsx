@@ -1,4 +1,4 @@
-import React, { createContext, useCallback } from "react";
+import React, { createContext, useCallback, useContext } from "react";
 import { UsuarioToken } from "../Services/LoginService";
 
 interface AuthContextData {
@@ -7,7 +7,7 @@ interface AuthContextData {
   getUsuarioToken(): UsuarioToken;
 }
 
-export const AuthContext = createContext<AuthContextData>(
+const AuthContext = createContext<AuthContextData>(
   {} as AuthContextData
 );
 
@@ -44,3 +44,11 @@ export const AuthProvider: React.FC = ({ children }) => {
     </>
   );
 };
+
+export function useAuth(): AuthContextData {
+  const context = useContext(AuthContext);
+
+  if(!context) throw new Error("useAuth deve ser usado dentro de um AuthProvider!");
+
+  return context;
+}
