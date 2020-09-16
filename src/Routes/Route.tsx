@@ -16,15 +16,12 @@ const Route: React.FC<RouteProps> = ({
   component: Component,
   ...rest
 }) => {
-  const usuarioLogado = !!useAuth().usuario();
-  console.log(usuarioLogado);
+  const usuarioLogado = !!useAuth().usuarioLogado;
 
   return (
     <ReactDOMRoute
       {...rest}
       render={() => {
-        console.log(isPrivate);
-        console.log(usuarioLogado);
 
         return isPrivate && usuarioLogado ? (
           <Component />

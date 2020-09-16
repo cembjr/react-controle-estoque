@@ -5,8 +5,12 @@ import { LoginService } from "../../Services/LoginService";
 import { useAuth } from "../../Context/AuthContext";
 import { useHistory, Link } from "react-router-dom";
 
-export const LoginPage: React.FC = () => {
-  const [form, setForm] = React.useState({ email: "", senha: "" });
+export const RegistroPage: React.FC = () => {
+  const [form, setForm] = React.useState({
+    email: "",
+    senha: "",
+    senhaConfirmacao: "",
+  });
   const [loginService] = React.useState(new LoginService());
 
   const auth = useAuth();
@@ -21,8 +25,7 @@ export const LoginPage: React.FC = () => {
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      const { email, senha } = form;
-      const loginResponse = (await loginService.logar({ email, senha })).data;
+      const loginResponse = (await loginService.registrar(form)).data;
       const { accessToken, usuarioToken } = loginResponse;
 
       auth.logar(usuarioToken, accessToken);
@@ -34,7 +37,7 @@ export const LoginPage: React.FC = () => {
 
   const cardStyle = {
     maxWidth: "380px",
-    marginTop: "20px",
+    marginTop: "20px"
   };
 
   return (
@@ -59,15 +62,19 @@ export const LoginPage: React.FC = () => {
                 value={form.senha}
               ></Input>
 
+              <Input
+                label="Senha Confirmação"
+                id="senhaConfirmacao"
+                type="password"
+                onChange={handleChange}
+                value={form.senhaConfirmacao}
+              ></Input>
+
               <div className="form-group">
-                <ButtonDefault type="submit" value="Logar" />
+                <ButtonDefault type="submit" value="Registrar" />
               </div>
             </form>
-          </div>
-          <div className="card-footer text-center">
-            Ainda não tem uma conta?
-            <Link to="/registro">Criar uma conta</Link>
-          </div>
+          </div>         
         </div>
       </section>
     </>

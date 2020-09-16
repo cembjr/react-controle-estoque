@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { LoginMenu } from '../../pages/LoginMenu';
+import { MenuItem } from './MenuItem';
 
 export const Menu : React.FC = () => {
     return(
@@ -14,16 +16,9 @@ export const Menu : React.FC = () => {
                 <div className="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     
                     <ul className="navbar-nav flex-grow-1">
-                        <li className="nav-item">
-                            <Link className="nav-link text-dark" to="/">Home</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link text-dark" to="/login">Login</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link text-dark" to="/produtos">Produtos</Link>
-                        </li>
-                        
+                        <MenuItem to="/">Home</MenuItem>
+                        <MenuItem to="/produtos">Produtos</MenuItem>
+                        <LoginMenu />
                     </ul>
                 </div>
             </div>

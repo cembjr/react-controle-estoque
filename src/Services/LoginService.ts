@@ -5,6 +5,11 @@ export interface Login {
   email: string;
   senha: string;
 }
+export interface UsuarioRegistro {
+  email: string;
+  senha: string;
+  senhaConfirmacao: string;
+}
 
 export interface LoginResponse {
   accessToken: string;
@@ -25,5 +30,8 @@ export class LoginService extends BaseService<Login> {
 
   public logar(login: Login): Promise<AxiosResponse<LoginResponse>> {
     return this.Post<Login, LoginResponse>("autenticar", login);
+  }
+  public registrar(usuarioRegistro: UsuarioRegistro): Promise<AxiosResponse<LoginResponse>>{
+      return this.Post<UsuarioRegistro, LoginResponse>('registrar', usuarioRegistro);
   }
 }
