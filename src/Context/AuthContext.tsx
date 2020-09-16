@@ -4,7 +4,7 @@ import { UsuarioToken } from "../Services/LoginService";
 interface AuthContextData {
   logar(usuarioToken: UsuarioToken, token: string): void;
   deslogar(): void;
-  getUsuarioToken(): UsuarioToken;
+  usuario(): UsuarioToken;
 }
 
 const AuthContext = createContext<AuthContextData>(
@@ -29,7 +29,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     return atob(localStorage.getItem("token") || "");
   }, []); */
 
-  const getUsuarioToken = useCallback((): UsuarioToken => {
+  const usuario = useCallback((): UsuarioToken => {
     const usuario = atob(localStorage.getItem("usuarioToken") || "");
     return (usuario ? JSON.parse(usuario) : "") as UsuarioToken;
   }, []);
@@ -37,7 +37,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   return (
     <>
       <AuthContext.Provider
-        value={{ logar, getUsuarioToken, deslogar }}
+        value={{ logar, usuario, deslogar }}
       >
         {children}
       </AuthContext.Provider>

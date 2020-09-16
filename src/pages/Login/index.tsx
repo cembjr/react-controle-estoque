@@ -3,12 +3,14 @@ import { Input } from "../../components/Input/Input";
 import { ButtonDefault } from "../../components/Buttons/ButtonDefault";
 import { LoginService } from "../../Services/LoginService";
 import { useAuth } from "../../Context/AuthContext";
+import { useHistory } from "react-router-dom";
 
 export const LoginPage: React.FC = () => {
   const [form, setForm] = React.useState({ email: "", senha: "" });
   const [loginService] = React.useState(new LoginService());
 
   const auth = useAuth();
+  const history = useHistory();
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = evt.target;
@@ -18,14 +20,16 @@ export const LoginPage: React.FC = () => {
   const handleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-
+      
       const { email, senha } = form;
       const loginResponse = (await loginService.logar({ email, senha })).data;
       const { accessToken, usuarioToken } = loginResponse;
 
       auth.logar(usuarioToken, accessToken);
+
+      history.push('/');
     },
-    [auth, form, loginService]
+    [auth, form, loginService, history]
   );
 
   return (
