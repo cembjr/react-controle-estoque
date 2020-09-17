@@ -1,7 +1,13 @@
-import React from 'react';
+import React from "react";
+import { ProdutoProvider } from "../../Context/ProdutoContext";
+import { ProdutosMain } from "./ProdutoMain";
 
 export const ProdutosPage: React.FC = () => {
-    return(
-        <h1>Produtos Page</h1>
-    );
-}
+  return (
+    <>
+      <ProdutoProvider>
+        <ProdutosMain />
+      </ProdutoProvider>
+    </>
+  );
+};

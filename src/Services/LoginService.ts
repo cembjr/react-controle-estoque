@@ -23,15 +23,15 @@ export interface UsuarioToken {
   claims: { chave: string; valor: string }[];
 }
 
-export class LoginService extends BaseService<Login> {
+export class LoginService extends BaseService {
   constructor() {
-    super("api/identidade/");
+    super("https://localhost:44398/api/identidade/");
   }
 
   public logar(login: Login): Promise<AxiosResponse<LoginResponse>> {
-    return this.Post<Login, LoginResponse>("autenticar", login);
+    return this.post<Login, LoginResponse>("autenticar", login);
   }
   public registrar(usuarioRegistro: UsuarioRegistro): Promise<AxiosResponse<LoginResponse>>{
-      return this.Post<UsuarioRegistro, LoginResponse>('registrar', usuarioRegistro);
+      return this.post<UsuarioRegistro, LoginResponse>('registrar', usuarioRegistro);
   }
 }

@@ -1,20 +1,29 @@
-import api from "./api";
-import { AxiosResponse } from "axios";
+import axios, { AxiosInstance, AxiosResponse } from "axios";
+import { useAuth } from "../Context/AuthContext";
 
-export abstract class BaseService<T> {
-  constructor(private url: string) {}
+export abstract class BaseService {
+  protected api: AxiosInstance;
 
-  public api = api;
+  private auth = useAuth();
 
-  public get(complUrl: string): Promise<AxiosResponse<T[]>> {
-    return api.get<T[]>(this.url + complUrl);
+  constructor(protected url: string) {
+    this.api = axios.create({
+      baseURL: url,
+    });
+    const token = this.auth.token;
+    this.api.defaults.headers.authorization = `Bearer ${token}`;
   }
 
-  public Post<T, TResp>(
+
+  public get<T>(complUrl: string): Promise<AxiosResponse<T>> {
+    return this.api.get<T>(this.url + complUrl);
+  }
+
+  public post<T, TResp>(
     complUrl: string,
     ent: T
   ): Promise<AxiosResponse<TResp>> {
-    return api.post(this.url + complUrl, ent);
+    return this.api.post(this.url + complUrl, ent);
   }
 
 }

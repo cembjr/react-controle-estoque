@@ -4,7 +4,7 @@ interface InputProps {
   type?: string;
   label: string;
   onChange: any;
-  value: string;
+  value: any;
   id: string;
 }
 

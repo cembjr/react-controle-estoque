@@ -3,7 +3,7 @@ import { Input } from "../../components/Input/Input";
 import { ButtonDefault } from "../../components/Buttons/ButtonDefault";
 import { LoginService } from "../../Services/LoginService";
 import { useAuth } from "../../Context/AuthContext";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export const RegistroPage: React.FC = () => {
   const [form, setForm] = React.useState({
